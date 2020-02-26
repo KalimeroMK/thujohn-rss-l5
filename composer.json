@@ -6,11 +6,10 @@
     "authors": [
         {
             "name": "thujohn",
-            "email": "jonathan.thuau@gmail.com"
-        },
-        {
+            "email": "jonathan.thuau@gmail.com",
             "name": "KalimeroMK",
             "email": "zbogoevski@gmail.com"
+            
         }
     ],
     "require": {
