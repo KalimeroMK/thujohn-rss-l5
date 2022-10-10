@@ -1,9 +1,10 @@
-<?php namespace Thujohn\Rss;
+<?php namespace Rss;
 
 /**
  * @TYPO3\Flow\Annotations\Proxy(false)
  */
-class SimpleXMLElement extends \SimpleXMLElement {
+class SimpleXMLElement extends \SimpleXMLElement
+{
 
 	/**
 	 * Adds a new child node - and replaces "&" by "&amp;" on the way ...
@@ -13,7 +14,8 @@ class SimpleXMLElement extends \SimpleXMLElement {
 	 * @param null $namespace The tag namespace, if any
 	 * @return \SimpleXMLElement
 	 */
-	public function addChild($name, $value = NULL, $namespace = NULL) {
+	public function addChild($name, $value = NULL, $namespace = NULL): \SimpleXMLElement
+    {
 		return parent::addChild($name, ($value !== NULL ? str_replace('&', '&amp;', $value) : NULL), $namespace);
 	}
 

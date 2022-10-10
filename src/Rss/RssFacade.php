@@ -1,4 +1,4 @@
-<?php namespace Thujohn\Rss;
+<?php namespace Rss;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -9,6 +9,9 @@ class RssFacade extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'rss'; }
+	protected static function getFacadeAccessor(): string
+    {
+        return 'rss';
+    }
 
 }

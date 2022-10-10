@@ -1,6 +1,6 @@
-<?php namespace Thujohn\Rss;
+<?php namespace Rss;
 
-use Thujohn\Rss\Channel;
+use Exception;
 
 class Rss {
 	protected $version = '';
@@ -9,66 +9,69 @@ class Rss {
 	protected $items = array();
 	protected $limit = 0;
 
-	public function feed($version, $encoding)
-	{
+	public function feed($version, $encoding): Rss
+    {
 		$this->version  = $version;
 		$this->encoding = $encoding;
 
 		return $this;
 	}
-
-	/**
-	 * Parameters :
-	 * - title (required)
-	 * - link (required)
-	 * - description (required)
-	 * - language
-	 * - copyright
-	 * - managingEditor
-	 * - webMaster
-	 * - pubDate
-	 * - lastBuildDate
-	 * - category
-	 * - generator
-	 * - docs
-	 * - cloud
-	 * - ttl
-	 * - image
-	 * - rating
-	 * - textInput
-	 * - skipHours
-	 * - skipDays
-	 */
-	public function channel($parameters)
-	{
+    
+    /**
+     * - title (required)
+     * - link (required)
+     * - description (required)
+     * - language
+     * - copyright
+     * - managingEditor
+     * - webMaster
+     * - pubDate
+     * - lastBuildDate
+     * - category
+     * - generator
+     * - docs
+     * - cloud
+     * - ttl
+     * - image
+     * - rating
+     * - textInput
+     * - skipHours
+     * - skipDays
+     * @param $parameters
+     * @return $this
+     * @throws Exception
+     */
+	public function channel($parameters): Rss
+    {
 		if (!array_key_exists('title', $parameters) || !array_key_exists('description', $parameters) || !array_key_exists('link', $parameters))
 		{
-			throw new \Exception('Parameter required missing : title, description or link');
+			throw new Exception('Parameter required missing : title, description or link');
 		}
 
 		$this->channel = $parameters;
 
 		return $this;
 	}
-
-	/**
-	 * Parameters :
-	 * - title
-	 * - link
-	 * - description
-	 * - author
-	 * - category
-	 * - comments
-	 * - enclosure
-	 * - guid
-	 * - pubDate
-	 * - source
-	 */
-	public function item($parameters)
-	{
+    
+    /**
+     * Parameters :
+     * - title
+     * - link
+     * - description
+     * - author
+     * - category
+     * - comments
+     * - enclosure
+     * - guid
+     * - pubDate
+     * - source
+     * @throws Exception
+     */
+	public function item($parameters): Rss
+    {
 		if (empty($parameters))
 		{
-			throw new \Exception('Parameter missing');
+			throw new Exception('Parameter missing');
 		}
 
 		$this->items[] = $parameters;
@@ -76,8 +79,8 @@ class Rss {
 		return $this;
 	}
 	
-	public function limit($limit)
-	{
+	public function limit($limit): Rss
+    {
 		if (is_int($limit) and $limit > 0)
 		{
 			$this->limit = $limit;
@@ -85,9 +88,12 @@ class Rss {
 
 		return $this;
 	}
-
-	public function render()
-	{
+    
+    /**
+     * @throws Exception
+     */
+    public function render(): SimpleXMLElement
+    {
 		$xml = new SimpleXMLElement('<?xml version="1.0" encoding="'.$this->encoding.'"?><rss version="'.$this->version.'" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"></rss>', LIBXML_NOERROR|LIBXML_ERR_NONE|LIBXML_ERR_FATAL);
 
 		$xml->addChild('channel');
@@ -124,12 +130,22 @@ class Rss {
 
 		return $xml;
 	}
-
+    
+    /**
+     * @param $filename
+     *
+     * @return bool|string
+     * @throws Exception
+     */
 	public function save($filename)
 	{
 		return $this->render()->asXML($filename);
 	}
-
+    
+    /**
+     * @return bool|string
+     * @throws Exception
+     */
 	public function __toString()
 	{
 		return $this->render()->asXML();

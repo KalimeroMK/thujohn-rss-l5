@@ -1,4 +1,4 @@
-<?php namespace Thujohn\Rss;
+<?php namespace Rss;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +18,7 @@ class RssServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        // $this->package('thujohn/rss');
+        // $this->package('rss');
     }
 
     /**
@@ -39,7 +39,7 @@ class RssServiceProvider extends ServiceProvider {
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return array('rss');
     }
