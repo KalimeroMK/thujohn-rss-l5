@@ -9,20 +9,20 @@ RSS builder for Laravel 5
 
 Add `thujohn/rss` to `composer.json`.
 
-    "thujohn/rss": "~1.0"
+    "kalimeromk/update-thujohn-rss": "dev-master",
     
 Run `composer update` to pull down the latest version of RSS.
 
 Now open up `app/config/app.php` and add the service provider to your `providers` array.
 
     'providers' => array(
-        'Thujohn\Rss\RssServiceProvider',
+        'Rss\RssServiceProvider',
     )
 
 Now add the alias.
 
     'aliases' => array(
-        'Rss' => 'Thujohn\Rss\RssFacade',
+        'Rss' => 'Rss\RssFacade',
     )
 
 
